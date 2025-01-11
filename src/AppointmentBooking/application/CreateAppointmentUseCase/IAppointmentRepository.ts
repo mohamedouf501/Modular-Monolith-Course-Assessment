@@ -1,4 +1,4 @@
-import { Appointment } from "../domain/Appointment";
+import { Appointment } from "../../domain/Appointment";
 
 export interface IAppointmentRepository {
  find(id: string): Promise<Appointment | null>;

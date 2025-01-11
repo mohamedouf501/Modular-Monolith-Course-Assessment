@@ -1,8 +1,8 @@
-import { Appointment } from "../domain/Appointment";
-import { IUseCase } from "../../shared/IUseCase";
+import { Appointment } from "../../domain/Appointment";
+import { IUseCase } from "../../../shared/IUseCase";
 import { IAppointmentRepository } from "./IAppointmentRepository";
-import { ICreateAppointmentDto } from "./ICreateAppointmentDto";
-import { ICreateAppointmentResult } from "./ICreateAppointmentResult";
+import { ICreateAppointmentDto } from "../CreateAppointmentUseCase/ICreateAppointmentDto";
+import { ICreateAppointmentResult } from "../CreateAppointmentUseCase/ICreateAppointmentResult";
 
 export class CreateAppointmentUseCase
  implements IUseCase<ICreateAppointmentDto, ICreateAppointmentResult>

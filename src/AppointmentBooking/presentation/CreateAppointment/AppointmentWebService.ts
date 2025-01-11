@@ -1,6 +1,6 @@
-import { InMemoryAppointmentRepository } from "../infrastructure/InMemoryAppointmentRepository";
-import { PrismaAppointmentRepository } from "../infrastructure/PrismaAppointmentRepository";
-import { CreateAppointmentUseCase } from "../application/CreateAppointmentUseCase";
+import { InMemoryAppointmentRepository } from "../../infrastructure/InMemoryAppointmentRepository";
+import { PrismaAppointmentRepository } from "../../infrastructure/PrismaAppointmentRepository";
+import { CreateAppointmentUseCase } from "../../application/CreateAppointmentUseCase/CreateAppointmentUseCase";
 import { CreateAppointmentController } from "./CreateAppointmentController";
 import { PrismaClient } from "@prisma/client";
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateAppointmentUseCase } from "../application/CreateAppointmentUseCase";
+import { CreateAppointmentUseCase } from "../../application/CreateAppointmentUseCase/CreateAppointmentUseCase";
 import { CreateAppointmentDto } from "./CreateAppointmentDto";
 
 export class CreateAppointmentController {

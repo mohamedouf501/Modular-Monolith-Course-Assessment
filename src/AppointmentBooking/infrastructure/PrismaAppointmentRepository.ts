@@ -1,5 +1,5 @@
 import { Appointment } from "../domain/Appointment";
-import { IAppointmentRepository } from "../application/IAppointmentRepository";
+import { IAppointmentRepository } from "../application/CreateAppointmentUseCase/IAppointmentRepository";
 import { PrismaClient } from "@prisma/client";
 
 export class PrismaAppointmentRepository implements IAppointmentRepository {
