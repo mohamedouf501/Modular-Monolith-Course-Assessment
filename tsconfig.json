@@ -9,7 +9,6 @@
   "experimentalDecorators": true,
   "emitDecoratorMetadata": true,
   "skipLibCheck": true,
-  "forceConsistentCasingInFileNames": true,
   "strictPropertyInitialization": false,
   "strictNullChecks": true,
   "allowJs": false
