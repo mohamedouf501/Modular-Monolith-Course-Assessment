@@ -1,5 +1,6 @@
 import express from "express";
 import { CreateAppointmentFramework } from "./AppointmentBooking/presentation/CreateAppointmentFramework";
+import managementRouter from './doctor-management/shell/framework/index'
 
 export async function main(): Promise<void> {
  const app = express();
@@ -7,6 +8,7 @@ export async function main(): Promise<void> {
  app.use(express.json());
 
  await CreateAppointmentFramework.bind(app);
+ app.use('/management', managementRouter);
 
  const port = 3000;
 
