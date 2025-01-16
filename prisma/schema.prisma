@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Doctor {
+  Id    String @id @default(uuid())
+  Name  String
+  Slots Slot[] @relation("DoctorSlots")
+}
+
+model Slot {
+  Id          String       @id @default(uuid())
+  Time        DateTime
+  DoctorId    String
+  Doctor      Doctor       @relation("DoctorSlots", fields: [DoctorId], references: [Id])
+  IsReserved  Boolean      @default(false)
+  Cost        Decimal
+  Appointment Appointment? @relation("SlotAppointment")
+}
+
+model Appointment {
+  Id          String   @id @default(uuid())
+  SlotId      String   @unique
+  Slot        Slot     @relation("SlotAppointment", fields: [SlotId], references: [Id])
+  PatientId   String
+  PatientName String
+  ReservedAt  DateTime
+}
