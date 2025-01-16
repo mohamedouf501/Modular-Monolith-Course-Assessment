@@ -1,5 +1,5 @@
 import { Appointment } from "../domain/Appointment";
-import { IAppointmentRepository } from "../application/IAppointmentRepository";
+import { IAppointmentRepository } from "../application/CreateAppointmentUseCase/IAppointmentRepository";
 
 export class InMemoryAppointmentRepository implements IAppointmentRepository {
  private readonly _appointments: Appointment[] = [];
