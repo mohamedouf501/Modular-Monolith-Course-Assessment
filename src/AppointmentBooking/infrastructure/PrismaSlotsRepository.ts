@@ -13,6 +13,7 @@ export class PrismaSlotsRepository implements ISlotsRepository {
    });
    return result;
   } catch (err) {
+   console.log(err);
    throw new Error("Error while fetching slots");
   }
  }
