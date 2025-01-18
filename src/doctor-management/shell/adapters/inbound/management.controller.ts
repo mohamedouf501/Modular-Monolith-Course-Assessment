@@ -8,7 +8,6 @@ export class ManagementController {
 
   constructor() {
     this.router = Router();
-    
     const repository = new ManagementRepository();
     this.managementService = new ManagementService(repository);
 

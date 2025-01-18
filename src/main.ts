@@ -6,25 +6,25 @@ import { EventBus } from "./shared/EventBus";
 import { NotificationApi } from "./Notification/internal/NotificationApi";
 import { AppointmentConfirmedEventHandler } from "./AppointmentConfirmation/AppointmentConfirmedEventHandler";
 import { AppointmentPublisher } from "./AppointmentBooking/infrastructure/AppointmentPublisher";
+import { doctorRoutes } from "./doctorAvailability/routes/doctor.routes";
 
 export async function main(): Promise<void> {
- const app = express();
- app.use(express.json());
+  const app = express();
+  app.use(express.json());
 
- // Shared event bus
- const eventBus = new EventBus();
- const notificationApi = new NotificationApi();
- new AppointmentConfirmedEventHandler(eventBus, notificationApi);
+  // Shared event bus
+  const eventBus = new EventBus();
+  const notificationApi = new NotificationApi();
+  new AppointmentConfirmedEventHandler(eventBus, notificationApi);
+  CreateAppointmentFramework.bind(app, eventBus);
+  GetAvailableSlotsFramework.bind(app);
+  app.use("/management", managementRouter);
+  doctorRoutes(app);
+  const port = 3000;
 
- CreateAppointmentFramework.bind(app, eventBus);
- GetAvailableSlotsFramework.bind(app);
- app.use("/management", managementRouter);
-
- const port = 3000;
-
- app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
- });
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
 }
 
 main();
