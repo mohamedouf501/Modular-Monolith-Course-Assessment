@@ -2,16 +2,24 @@ import express from "express";
 import managementRouter from "./doctor-management/shell/framework/index";
 import { CreateAppointmentFramework } from "./AppointmentBooking/presentation/CreateAppointment/CreateAppointmentFramework";
 import { GetAvailableSlotsFramework } from "./AppointmentBooking/presentation/GetAvailableSlots/GetAvailableSlotsFramework";
+import { EventBus } from "./shared/EventBus";
+import { NotificationApi } from "./Notification/internal/NotificationApi";
+import { AppointmentConfirmedEventHandler } from "./AppointmentConfirmation/AppointmentConfirmedEventHandler";
+import { AppointmentPublisher } from "./AppointmentBooking/infrastructure/AppointmentPublisher";
+import { doctorRoutes } from "./doctorAvailability/routes/doctor.routes";
 
 export async function main(): Promise<void> {
   const app = express();
-
   app.use(express.json());
 
-  app.use("/management", managementRouter);
-  CreateAppointmentFramework.bind(app);
+  // Shared event bus
+  const eventBus = new EventBus();
+  const notificationApi = new NotificationApi();
+  new AppointmentConfirmedEventHandler(eventBus, notificationApi);
+  CreateAppointmentFramework.bind(app, eventBus);
   GetAvailableSlotsFramework.bind(app);
-
+  app.use("/management", managementRouter);
+  doctorRoutes(app);
   const port = 3000;
 
   app.listen(port, () => {

@@ -1,34 +1,43 @@
-import { Appointment } from '../domain/appointment.entity';
-import { ManagementRepositoryPort } from '../ports/management.repository.port';
- 
-export class ManagementService {
+import { Appointment } from "../domain/appointment.entity";
+import { ManagementRepositoryPort } from "../ports/management.repository.port";
+
+export class 
+
+  
+  ManagementService {
   constructor(private readonly repository: ManagementRepositoryPort) {}
   public async getUpcomingAppointments(): Promise<Appointment[]> {
     const all = await this.repository.findAllAppointments();
     const upcoming = all.filter(
-      (appt) => !appt.isCompleted && !appt.isCanceled
+      (appt) => appt.status === "scheduled" && appt.reservedAt > new Date()
     );
     return upcoming;
   }
 
-  public async markAppointmentAsCompleted(appointmentId: string): Promise<Appointment> {
-    const appointment = await this.repository.findAppointmentById(appointmentId);
+  public async markAppointmentAsCompleted(
+    appointmentId: string
+  ): Promise<Appointment> {
+    const appointment = await this.repository.findAppointmentById(
+      appointmentId
+    );
     if (!appointment) {
-      throw new Error('Appointment not found');
+      throw new Error("Appointment not found");
     }
 
-    appointment.isCompleted = true;
+    appointment.status = "completed";
     await this.repository.saveAppointment(appointment);
     return appointment;
   }
 
   public async cancelAppointment(appointmentId: string): Promise<Appointment> {
-    const appointment = await this.repository.findAppointmentById(appointmentId);
+    const appointment = await this.repository.findAppointmentById(
+      appointmentId
+    );
     if (!appointment) {
-      throw new Error('Appointment not found');
+      throw new Error("Appointment not found");
     }
 
-    appointment.isCanceled = true;
+    appointment.status = "cancelled";
     await this.repository.saveAppointment(appointment);
     return appointment;
   }

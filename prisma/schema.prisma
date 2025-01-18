@@ -20,6 +20,7 @@ model Slot {
   Id          String       @id @default(uuid())
   Time        DateTime
   DoctorId    String
+  DoctorName  String?
   Doctor      Doctor       @relation("DoctorSlots", fields: [DoctorId], references: [Id])
   IsReserved  Boolean      @default(false)
   Cost        Decimal
@@ -32,5 +33,6 @@ model Appointment {
   Slot        Slot     @relation("SlotAppointment", fields: [SlotId], references: [Id])
   PatientId   String
   PatientName String
-  ReservedAt  DateTime
+  status      Boolean  @default(false)
+  ReservedAt  DateTime @default(now())
 }
